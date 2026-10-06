@@ -6,12 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "db:init": "tsx scripts/init-db.ts",
+    "kb:seed": "tsx scripts/seed.ts",
+    "auth:seed-demo": "tsx scripts/seed-demo-users.ts"
   },
   "dependencies": {
+    "@google/genai": "^2.27.0",
+    "@hookform/resolvers": "^5.9.1",
+    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-select": "^2.3.7",
+    "date-fns": "^4.4.0",
+    "groq-sdk": "^1.6.0",
+    "jose": "^6.2.12",
+    "lucide-react": "^1.52.0",
+    "mongodb": "^7.7.0",
     "next": "16.3.8",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-day-picker": "^10.0.2",
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.89.0",
+    "sonner": "^2.0.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -21,6 +38,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   }
 }

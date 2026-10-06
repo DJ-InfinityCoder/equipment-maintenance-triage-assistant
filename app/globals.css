@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f6f8fb;
+  --foreground: #172033;
 }
 
 @theme inline {
@@ -12,15 +15,111 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.light-ui {
+  color-scheme: light;
+  background-color: #f6f8fb;
+  color: #172033;
+}
+
+.light-ui [class~="bg-slate-900"] {
+  background-color: #f6f8fb;
+}
+
+.light-ui [class*="bg-slate-900/"] {
+  background-color: #ffffff;
+}
+
+.light-ui [class~="bg-slate-800"] {
+  background-color: #ffffff;
+}
+
+.light-ui [class*="bg-slate-800/"] {
+  background-color: #f8fafc;
+}
+
+.light-ui [class~="bg-slate-700"],
+.light-ui [class*="bg-slate-700/"] {
+  background-color: #f1f5f9;
+}
+
+.light-ui :is([class*="bg-red-950"], [class*="bg-red-900"]) {
+  background-color: #fef2f2;
+}
+
+.light-ui :is([class*="bg-amber-950"], [class*="bg-amber-900"]) {
+  background-color: #fffbeb;
+}
+
+.light-ui :is([class*="bg-emerald-950"], [class*="bg-emerald-900"]) {
+  background-color: #f0fdf4;
+}
+
+.light-ui .animate-pulse[class*="bg-slate-"] {
+  background-color: #e2e8f0;
+}
+
+.light-ui :is(
+  [class~="text-white"],
+  [class~="text-slate-100"],
+  [class~="text-slate-200"]
+) {
+  color: #172033;
+}
+
+.light-ui [class~="text-slate-300"] {
+  color: #475569;
+}
+
+.light-ui [class~="text-slate-400"] {
+  color: #64748b;
+}
+
+.light-ui :is(
+  [class~="text-red-200"],
+  [class~="text-red-300"],
+  [class~="text-red-400"]
+) {
+  color: #b91c1c;
+}
+
+.light-ui :is(
+  [class~="text-amber-200"],
+  [class~="text-amber-300"],
+  [class~="text-amber-400"]
+) {
+  color: #92400e;
+}
+
+.light-ui :is(
+  [class~="text-emerald-200"],
+  [class~="text-emerald-300"],
+  [class~="text-emerald-400"]
+) {
+  color: #166534;
+}
+
+.light-ui :is(
+  .bg-black.text-white,
+  .bg-red-600.text-white,
+  .bg-emerald-600.text-white,
+  .bg-amber-600.text-white,
+  .bg-gradient-to-r.text-white
+) {
+  color: #ffffff;
+}
+
+.light-ui [class*="border-slate-800"],
+.light-ui [class*="border-slate-700"],
+.light-ui [class*="border-slate-600"] {
+  border-color: #e2e8f0;
+}
+
+.light-ui [class*="divide-slate-800"] > :not(:last-child) {
+  border-color: #e2e8f0;
 }
