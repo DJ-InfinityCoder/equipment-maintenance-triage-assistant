@@ -3,6 +3,8 @@ import { getUsersCollection, UserDoc } from "@/lib/db/collections";
 import { DatabaseError } from "@/lib/schemas/errors";
 import { AppUser, UserRole } from "@/lib/schemas/user";
 import { stripMongoId } from "@/lib/db/repos/utils";
+import { areDemoAccountsEnabled, DEMO_ACCOUNTS } from "@/lib/auth/demo-accounts";
+import { createPasswordHash, verifyPassword } from "@/lib/auth/session";
 
 export async function findUserByEmail(email: string): Promise<AppUser | null> {
   const usersColl = await getUsersCollection();
@@ -62,3 +64,55 @@ export async function ensureUsersIndex(): Promise<void> {
     });
   }
 }
+
+export async function ensureDemoUser(
+  email: string,
+  password: string
+): Promise<AppUser | null> {
+  if (!areDemoAccountsEnabled()) {
+    return null;
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+  const demoAccount = DEMO_ACCOUNTS.find(
+    (account) => account.email.toLowerCase() === normalizedEmail
+  );
+
+  if (!demoAccount || demoAccount.password !== password) {
+    return null;
+  }
+
+  const usersColl = await getUsersCollection();
+  const existing = await usersColl.findOne({ email: normalizedEmail });
+
+  if (existing && verifyPassword(password, existing.passwordSalt, existing.passwordHash)) {
+    return stripMongoId(existing) as AppUser;
+  }
+
+  const { salt, hash } = createPasswordHash(demoAccount.password);
+  const now = new Date().toISOString();
+  const demoId = `user_demo_${demoAccount.role}`;
+
+  await usersColl.updateOne(
+    { email: normalizedEmail },
+    {
+      $set: {
+        name: demoAccount.name,
+        email: demoAccount.email,
+        role: demoAccount.role,
+        passwordHash: hash,
+        passwordSalt: salt,
+        updatedAt: now,
+      },
+      $setOnInsert: {
+        id: demoId,
+        createdAt: now,
+      },
+    },
+    { upsert: true }
+  );
+
+  const updated = await usersColl.findOne({ email: normalizedEmail });
+  return updated ? (stripMongoId(updated) as AppUser) : null;
+}
+

@@ -7,7 +7,7 @@ import { getMongoClientPromise } from "../lib/db/client";
 
 async function main() {
   if (!areDemoAccountsEnabled()) {
-    throw new Error("Demo accounts may only be seeded outside production.");
+    throw new Error("Demo accounts may only be seeded when demo accounts are enabled.");
   }
 
   try {

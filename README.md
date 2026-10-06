@@ -81,15 +81,15 @@ cannot approve work.
    when you want the seed script to generate vector embeddings. Wait for the
    Atlas index to finish building before testing vector retrieval.
 
-5. (Optional, local development only) Seed demo accounts:
+5. (Optional) Seed demo accounts manually (or use auto-provisioning on first demo login):
 
    ```bash
    npm run auth:seed-demo
    ```
 
-   The login page shows the local demo credentials. Demo credentials are
-   disabled by the login API in production. Do not publish them as hosted
-   reviewer credentials.
+   The login page displays demo evaluation credentials with quick "Use" buttons.
+   Both reporter and technician demo accounts work in development and production
+   environments for streamlined evaluation.
 
 6. Start the app:
 
@@ -209,7 +209,6 @@ inventory management, technician dispatch, and remote equipment control.
   deterministic rule findings available.
 - Retrieval quality depends on the manuals in `data/kb/`, MongoDB availability,
   and (for vector mode) embeddings and Atlas index readiness.
-- Demo accounts are for local development only. Create distinct production
-  reporter and technician reviewer accounts; never publish production secrets.
+- Demo accounts are available on the login page for evaluator convenience. You can also register custom reporter accounts directly from the UI.
 - Before final submission, ensure the hosted URL and review credentials work,
   and document the live deployment details in your submission remarks.

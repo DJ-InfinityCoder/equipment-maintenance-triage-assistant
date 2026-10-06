@@ -127,7 +127,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <Card id="workflow" className="scroll-mt-24 overflow-hidden rounded-md shadow-md shadow-slate-200/60">
+          <Card className="overflow-hidden rounded-md shadow-md shadow-slate-200/60">
             <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
@@ -169,15 +169,22 @@ export default async function Home() {
           </Card>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section
+          id="workflow"
+          className="scroll-mt-24 border-y border-slate-200 bg-white"
+        >
           <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
             <div className="mb-7 max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                Built for accountable maintenance
+                How it works
               </p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-                Reliable guidance, with clear ownership.
+                From equipment issue to reviewed work order.
               </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Each step keeps evidence visible, safety checks deterministic,
+                and the final decision with a human technician.
+              </p>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {capabilities.map(({ icon: Icon, title, description }) => (

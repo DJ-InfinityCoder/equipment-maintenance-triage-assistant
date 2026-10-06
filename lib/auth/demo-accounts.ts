@@ -14,5 +14,5 @@ export const DEMO_ACCOUNTS = [
 ] as const;
 
 export function areDemoAccountsEnabled(): boolean {
-  return process.env.NODE_ENV !== "production";
+  return process.env.DISABLE_DEMO_ACCOUNTS !== "true";
 }

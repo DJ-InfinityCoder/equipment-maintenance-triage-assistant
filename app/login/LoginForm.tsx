@@ -112,9 +112,9 @@ export default function LoginForm({
 
           {demoAccounts.length > 0 && (
             <section className="mt-7 rounded-md border border-amber-200 bg-amber-50 p-4" aria-label="Demo accounts">
-              <h2 className="text-sm font-semibold text-amber-950">Local demo accounts</h2>
+              <h2 className="text-sm font-semibold text-amber-950">Demo accounts for evaluation</h2>
               <p className="mt-1 text-xs leading-5 text-amber-900">
-                For local development only. Do not use these public credentials in production.
+                Click &ldquo;Use&rdquo; below to quickly populate credentials and evaluate reporter or technician capabilities.
               </p>
               <div className="mt-3 space-y-2">
                 {demoAccounts.map((account) => (

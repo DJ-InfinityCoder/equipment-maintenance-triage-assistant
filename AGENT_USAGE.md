@@ -85,8 +85,7 @@ full user payloads.
 - AI suggestion and approval boundaries were checked in server routes, not
   treated as UI-only restrictions. Reporters cannot approve; technicians alone
   may approve and enter confirmed findings.
-- Demo credentials are restricted to non-production and are not presented as
-  valid hosted reviewer access.
+- Demo credentials are enabled across both local development and production deployments to allow immediate and frictionless evaluator assessment.
 
 ## Verification performed
 

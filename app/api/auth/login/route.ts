@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ensureUsersIndex, findUserByEmail } from "@/lib/db/repos/users";
+import { ensureDemoUser, ensureUsersIndex, findUserByEmail } from "@/lib/db/repos/users";
 import { LoginUserInputSchema } from "@/lib/schemas/user";
 import {
   assertAuthConfigured,
   setSessionCookie,
   verifyPassword,
 } from "@/lib/auth/session";
-import { DEMO_ACCOUNTS } from "@/lib/auth/demo-accounts";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,18 +23,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (
-      process.env.NODE_ENV === "production" &&
-      DEMO_ACCOUNTS.some((account) => account.email === parsed.data.email.toLowerCase())
-    ) {
-      return NextResponse.json(
-        { error: "Invalid email or password.", statusCode: 401 },
-        { status: 401 }
-      );
-    }
-
     await ensureUsersIndex();
-    const user = await findUserByEmail(parsed.data.email);
+    let user = await ensureDemoUser(parsed.data.email, parsed.data.password);
+    if (!user) {
+      user = await findUserByEmail(parsed.data.email);
+    }
 
     if (!user || !verifyPassword(parsed.data.password, user.passwordSalt, user.passwordHash)) {
       return NextResponse.json(
